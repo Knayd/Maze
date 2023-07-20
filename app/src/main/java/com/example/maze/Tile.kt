@@ -19,6 +19,12 @@ data class Tile(
     var hasRightWall: Boolean = true
         private set
 
+    var enterDirection: Direction? = null
+        private set
+
+    var exitDirection: Direction? = null
+        private set
+
     fun isAtBottomOf(other: Tile): Boolean {
         return column == other.column && row == (other.row + 1)
     }
@@ -53,5 +59,21 @@ data class Tile(
 
     fun updateVisited(value: Boolean) {
         visited = value
+    }
+
+    fun updateEnterDirection(newEnterDirection: Direction?) {
+        if (exitDirection == newEnterDirection) {
+            exitDirection = null
+        } else {
+            enterDirection = newEnterDirection
+        }
+    }
+
+    fun updateExitDirection(newExitDirection: Direction?) {
+        if (enterDirection == newExitDirection) {
+            enterDirection = null
+        } else {
+            exitDirection = newExitDirection
+        }
     }
 }

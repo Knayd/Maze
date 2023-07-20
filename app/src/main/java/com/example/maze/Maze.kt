@@ -91,10 +91,26 @@ class Maze(val rows: Int, val columns: Int) {
     fun movePlayer(direction: Direction) {
         _player.value?.let { player ->
             _player.value = when {
-                direction == Direction.UP && !player.hasTopWall -> topTileOf(player)
-                direction == Direction.DOWN && !player.hasBottomWall -> bottomTileOf(player)
-                direction == Direction.LEFT && !player.hasLeftWall -> leftTileOf(player)
-                direction == Direction.RIGHT && !player.hasRightWall -> rightTileOf(player)
+                direction == Direction.UP && !player.hasTopWall -> {
+                    player.updateExitDirection(direction)
+                    topTileOf(player)?.apply { updateEnterDirection(Direction.DOWN) }
+                }
+
+                direction == Direction.DOWN && !player.hasBottomWall -> {
+                    player.updateExitDirection(direction)
+                    bottomTileOf(player)?.apply { updateEnterDirection(Direction.UP) }
+                }
+
+                direction == Direction.LEFT && !player.hasLeftWall -> {
+                    player.updateExitDirection(direction)
+                    leftTileOf(player)?.apply { updateEnterDirection(Direction.RIGHT) }
+                }
+
+                direction == Direction.RIGHT && !player.hasRightWall -> {
+                    player.updateExitDirection(direction)
+                    rightTileOf(player)?.apply { updateEnterDirection(Direction.LEFT) }
+                }
+
                 else -> player
             }
         }
