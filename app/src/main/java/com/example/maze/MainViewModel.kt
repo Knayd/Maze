@@ -8,7 +8,7 @@ class MainViewModel : ViewModel() {
     val mazeFlow = MutableStateFlow(Maze(ROWS, COLUMNS))
 
     companion object {
-        private const val ROWS = 10
-        private const val COLUMNS = 10
+        private const val ROWS = 20
+        private const val COLUMNS = 20
     }
 }
